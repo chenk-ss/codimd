@@ -3,7 +3,7 @@
 	"Realtime collaborative markdown notes on all platforms.": "使用 Markdown 的跨平台即时协作笔记。",
 	"Best way to write and share your knowledge in markdown.": "写作与分享 Markdown 的最佳平台。",
 	"Intro": "简介",
-    "History": "历史",
+    "History": "我的文档",
 	"New guest note": "新建访客笔记",
 	"Collaborate with URL": "实时协作",
 	"Support charts and MathJax": "支持图表与 MathJax",
@@ -111,7 +111,7 @@
 	"Do you really want to delete your user account?": "您确定要删除帐户吗？",
 	"This will delete your account, all notes that are owned by you and remove all references to your account from other notes.": "您的帐户、您所拥有的笔记、他人笔记中对您帐户的引用都将被删除。",
 	"Delete user": "删除帐户",
-	"Export user data": "导出用户数据",
+	"Export user data": "导出文件",
 	"Help us translating on %s": "在 %s 上帮我们翻译",
 	"Source Code": "源代码",
 	"Powered by %s": "由 %s 驱动",
@@ -138,5 +138,6 @@
 	"Expand all": "Expand all",
 	"Collapse all": "Collapse all",
 	"Back to top": "Back to top",
-	"Go to bottom": "Go to bottom"
+	"Go to bottom": "Go to bottom",
+	"Img": "头像"
 }

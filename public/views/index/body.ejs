@@ -19,6 +19,9 @@
                                 <button class="btn btn-sm btn-success ui-signin" data-toggle="modal" data-target=".signin-modal"><%= __('Sign In') %></button>
                                 <% } %>
                             </div>
+                            <form name="exportNoteData" action="<%- serverURL %>/me/export" method="post">
+                                <input type="hidden" name="_csrf" value="<%- csrfToken %>">
+                            </form>
                             <div class="ui-signout" style="float: right; margin-top: 8px;<% if(!signin) { %> display: none;<% } %>">
                                 <a type="button" href="<%- serverURL %>/new" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> <%= __('New note') %></a>
                                 <span class="ui-profile dropdown pull-right">
@@ -27,7 +30,9 @@
                                     </button>
                                     <ul class="dropdown-menu" aria-labelledby="profileLabel">
                                         <li><a href="<%- serverURL %>/features"><i class="fa fa-dot-circle-o fa-fw"></i> <%= __('Features') %></a></li>
-                                        <li><a href="<%- serverURL %>/me/export"><i class="fa fa-cloud-download fa-fw"></i> <%= __('Export user data') %></a></li>
+                                        <li><a data-toggle="modal" data-target=".image-modal"><i class="fa fa-user-circle-o fa-fw"></i> 头像</a></li>
+                                        <li><a data-toggle="modal" data-target=".set-password-modal"><i class="fa fa-address-book-o fa-fw"></i> 修改密码</a></li>
+                                        <li><a href="#" class="ui-export-user-data"><i class="fa fa-cloud-download fa-fw"></i> <%= __('Export user data') %></a></li>
                                         <li><a class="ui-delete-user" data-toggle="modal" data-target=".delete-user-modal"><i class="fa fa-trash fa-fw"></i> <%= __('Delete user') %></a></li>
                                         <li><a href="<%- serverURL %>/logout"><i class="fa fa-sign-out fa-fw"></i> <%= __('Sign Out') %></a></li>
                                     </ul>
@@ -104,13 +109,13 @@
                     <a href="#" class="sort btn btn-default" data-sort="timestamp" title="<%= __('Sort by time') %>">
                     <%= __('Time') %>
                     </a>
-                    <span class="hidden-xs hidden-sm">
+                    <!-- <span class="hidden-xs hidden-sm">
                         <a href="#" class="btn btn-default ui-save-history" title="<%= __('Export history') %>"><i class="fa fa-save"></i></a>
                         <span class="btn btn-default btn-file ui-open-history" title="<%= __('Import history') %>">
                             <i class="fa fa-folder-open-o"></i><input type="file" />
                         </span>
                     <a href="#" class="btn btn-default ui-clear-history" title="<%= __('Clear history') %>" data-toggle="modal" data-target=".delete-history-modal"><i class="fa fa-trash-o"></i></a>
-                    </span>
+                    </span> -->
                     <a href="#" class="btn btn-default ui-refresh-history" title="<%= __('Refresh history') %>"><i class="fa fa-refresh"></i></a>
                 </form>
                 <h4 class="ui-nohistory" style="display:none;">
@@ -202,4 +207,56 @@
         </div>
     </div>
 </div>
-<%- include ../shared/signin-modal %>
+<div class="modal fade image-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">设置头像</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <form data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="url" class="form-control" name="url" placeholder="Image url" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default ui-delete-user-modal-cancel" data-dismiss="modal"><%= __('Cancel') %></button>
+                        <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/image">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade set-password-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">修改密码</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <form data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="password" class="form-control" name="password" placeholder="Original password" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="password" class="form-control" name="newPassword" placeholder="New password" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default ui-delete-user-modal-cancel" data-dismiss="modal"><%= __('Cancel') %></button>
+                        <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/password">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../shared/signin-modal') %>
