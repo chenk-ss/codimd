@@ -19,9 +19,6 @@
                                 <button class="btn btn-sm btn-success ui-signin" data-toggle="modal" data-target=".signin-modal"><%= __('Sign In') %></button>
                                 <% } %>
                             </div>
-                            <form name="exportNoteData" action="<%- serverURL %>/me/export" method="post">
-                                <input type="hidden" name="_csrf" value="<%- csrfToken %>">
-                            </form>
                             <div class="ui-signout" style="float: right; margin-top: 8px;<% if(!signin) { %> display: none;<% } %>">
                                 <a type="button" href="<%- serverURL %>/new" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> <%= __('New note') %></a>
                                 <span class="ui-profile dropdown pull-right">
@@ -129,7 +126,7 @@
 
             <div class="mastfoot">
                 <div class="inner">
-                    <select class="ui-locale">
+                    <!-- <select class="ui-locale">
                         <option value="en">English</option>
                         <option value="zh-CN">简体中文</option>
                         <option value="zh-TW">繁體中文</option>
@@ -154,7 +151,7 @@
                         <option value="ko">한국어</option>
                         <option value="id">Bahasa Indonesia</option>
                         <option value="sr">српски</option>
-                    </select>
+                    </select> -->
                     <p>
                         <%- __('Powered by %s', '<a href="https://github.com/hackmdio/codimd">CodiMD</a>') %> | <a href="<%- serverURL %>/s/release-notes" target="_blank" rel="noopener"><%= __('Releases') %></a> | <a href="<%- sourceURL %>" target="_blank" rel="noopener"><%= __('Source Code') %></a><% if(privacyStatement) { %> | <a href="<%- serverURL %>/s/privacy" target="_blank" rel="noopener"><%= __('Privacy') %></a><% } %><% if(termsOfUse) { %> | <a href="<%- serverURL %>/s/terms-of-use" target="_blank" rel="noopener"><%= __('Terms of Use') %></a><% } %>
                     </p>
@@ -259,4 +256,37 @@
         </div>
     </div>
 </div>
-<%- include('../shared/signin-modal') %>
+<div class="modal fade signin-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="mySmallModalLabel"><%= __('Choose method') %></h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <h4><%= __('Sign in via %s', 'E-Mail') %></h4>
+                <form data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="email" class="form-control" name="email" placeholder="E-Mail" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="password" class="form-control" name="password" placeholder="Password" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/login"><%= __('Sign In') %></button>
+                            <% if (authProviders.allowEmailRegister) { %><button type="submit" class="btn btn-default" formaction="<%- serverURL %>/register"><%= __('Register') %></button><% }%>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
