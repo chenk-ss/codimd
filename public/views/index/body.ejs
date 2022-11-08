@@ -21,7 +21,9 @@
                             </div>
                             <div class="ui-signout" style="float: right; margin-top: 8px;<% if(!signin) { %> display: none;<% } %>">
                                 <a type="button" href="<%- serverURL %>/new" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> <%= __('New note') %></a>
+                                <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".replace-folder-modal" style="background-color: yellowgreen;"><i class="fa fa-circle"></i> 转移</a>
                                 <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".add-folder-modal" style="background-color: green;"><i class="fa fa-plus"></i> 新建文件夹</a>
+                                <a type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target=".remove-folder-modal" style="background-color: red;"><i class="fa fa-minus"></i> 删除文件夹</a>
                                 <span class="ui-profile dropdown pull-right">
                                     <button id="profileLabel" class="btn btn-sm btn-link ui-profile-label" style="padding-right: 0;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                         <img class="ui-avatar" width="20" height="20"><span class="hidden-xs hidden-sm">&ensp;<span class="ui-name"></span></span>&ensp;<i class="fa fa-caret-down"></i>
@@ -112,7 +114,7 @@
                 <h4 class="ui-nohistory" style="display:none;">
                     <%= __('No history') %>
                 </h4>
-                <a href="#" class="btn btn-primary ui-import-from-browser" style="display:none;"><%= __('Import from browser') %></a>
+                <!-- <a href="#" class="btn btn-primary ui-import-from-browser" style="display:none;"><%= __('Import from browser') %></a> -->
                 <ul id="history-list" class="list">
                 </ul>
                 <ul class="pagination"></ul>
@@ -221,6 +223,58 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default ui-delete-user-modal-cancel" data-dismiss="modal"><%= __('Cancel') %></button>
                         <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/newFolder">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade replace-folder-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">转移</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <form data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="folderId" placeholder="目标文件夹Id">
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="fileId" placeholder="需转移的文件或文件夹Id" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default ui-delete-user-modal-cancel" data-dismiss="modal"><%= __('Cancel') %></button>
+                        <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/replaceFolder">确认</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade remove-folder-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">删除文件夹</h4>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <form data-toggle="validator" role="form" class="form-horizontal" method="post" enctype="application/x-www-form-urlencoded">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <input type="text" class="form-control" name="folderId" placeholder="Folder Id" required>
+                            <span class="help-block control-label with-errors" style="display: inline;"></span>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default ui-delete-user-modal-cancel" data-dismiss="modal"><%= __('Cancel') %></button>
+                        <button type="submit" class="btn btn-primary" formaction="<%- serverURL %>/removeFolder">确认</button>
                     </div>
                 </form>
             </div>
