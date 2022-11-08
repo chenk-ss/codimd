@@ -33,13 +33,11 @@ require('../css/cover.css')
 require('../css/site.css')
 
 const options = {
-  valueNames: ['id', 'text', 'timestamp', 'fromNow', 'time', 'tags', 'pinned'],
+  valueNames: ['id', 'text', 'timestamp', 'fromNow', 'time', 'tags', 'pinned', 'type'],
   item: `<li class="col-xs-12 col-sm-6 col-md-6 col-lg-4">
           <span class="id" style="display:none;"></span>
           <a href="#">
             <div class="item">
-              <div class="ui-history-pin fa fa-thumb-tack fa-fw"></div>
-              <div class="ui-history-close fa fa-close fa-fw" data-toggle="modal" data-target=".delete-history-modal"></div>
               <div class="content">
                 <h4 class="text"></h4>
                 <p>
@@ -176,16 +174,21 @@ historyList.on('updated', e => {
       const itemEl = $(item.elm)
       const values = item._values
       const a = itemEl.find('a')
-      const pin = itemEl.find('.ui-history-pin')
+      const b = itemEl.find('div')
       const tagsEl = itemEl.find('.tags')
       // parse link to element a
-      a.attr('href', `${serverurl}/${values.id}`)
-      // parse pinned
-      if (values.pinned) {
-        pin.addClass('active')
+      if(values.type === 'FOLDER') {
+        a.attr('href', `${serverurl}?${values.id}`)
+        b.attr('style', `background-color: beige`)
       } else {
-        pin.removeClass('active')
+        a.attr('href', `${serverurl}/${values.id}`)
       }
+      // parse pinned
+      // if (values.pinned) {
+      //   pin.addClass('active')
+      // } else {
+      //   pin.removeClass('active')
+      // }
       // parse tags
       const tags = values.tags
       if (tags && tags.length > 0 && tagsEl.children().length <= 0) {
@@ -200,8 +203,8 @@ historyList.on('updated', e => {
   }
   $('.ui-history-close').off('click')
   $('.ui-history-close').on('click', historyCloseClick)
-  $('.ui-history-pin').off('click')
-  $('.ui-history-pin').on('click', historyPinClick)
+  // $('.ui-history-pin').off('click')
+  // $('.ui-history-pin').on('click', historyPinClick)
 })
 
 function historyCloseClick (e) {

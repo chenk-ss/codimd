@@ -206,6 +206,10 @@ export function parseServerToHistory (list, callback) {
       }
     })
     .fail((xhr, status, error) => {
+      if (xhr.status === 404) {
+        location.href = `${serverurl}/404`
+        return
+      }
       console.error(xhr.responseText)
     })
 }
