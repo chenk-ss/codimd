@@ -140,13 +140,14 @@ function parseHistoryCallback (list, notehistory) {
       } else if (!notea.pinned && noteb.pinned) {
         return 1
       } else {
-        if (notea.timestamp > noteb.timestamp) {
-          return -1
-        } else if (notea.timestamp < noteb.timestamp) {
-          return 1
-        } else {
-          return 0
-        }
+        return 1
+        // if (notea.timestamp > noteb.timestamp) {
+        //   return -1
+        // } else if (notea.timestamp < noteb.timestamp) {
+        //   return 1
+        // } else {
+        //   return 0
+        // }
       }
     }
   })
